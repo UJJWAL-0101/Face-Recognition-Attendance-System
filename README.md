@@ -16,5 +16,5 @@ Technologies Used:
 
 - OpenCV for face detection and recognition
 - Python for scripting
-- SQLite for database management
+- SQL for database management
 - deepface for face identify
