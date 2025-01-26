@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #434343, #000);
+            color: #f0f0f0;
+            height: 100vh;
+            justify-content: center;
+        }
+        h1 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            font-size: 2.8em;
+            letter-spacing: 1.2px;
+        }
+        form {
+            margin-top: 20px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            width: 350px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            color: #333;
+            font-size: 1.2em;
+        }
+        input[type="text"], input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #ff6b6b;
+            outline: none;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1.2em;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        ul {
+            color: #e74c3c;
+            list-style-type: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        .register-link {
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .register-link:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* Fantastic success tick styling */
+        .success {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #28a745;
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            background-color: rgba(40, 167, 69, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .success .checkmark {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #28a745;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .success .checkmark::after {
+            content: '';
+            width: 30px;
+            height: 15px;
+            border: solid white;
+            border-width: 0 5px 5px 0;
+            transform: rotate(45deg);
+            position: absolute;
+            animation: draw 0.5s ease-in-out forwards;
+        }
+
+        @keyframes draw {
+            from {
+                transform: rotate(45deg) scale(0);
+            }
+            to {
+                transform: rotate(45deg) scale(1);
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Student Login</h1>
+    <form action="/login" method="post">
+        <label for="id">Student ID:</label>
+        <input type="text" id="id" name="id" placeholder="Enter your ID" required>
+
+        <label for="name">Student Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your Name" required>
+
+        <input type="submit" value="Login and Mark Attendance">
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                {% if message == 'Attendance marked' %}
+                <div class="success">
+                    <div class="checkmark"></div>
+                    {{ message }}
+                </div>
+                {% else %}
+                <li>{{ message }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}
+
+    <a href="{{ url_for('register') }}" class="register-link">Not registered? Register here.</a>
+</body>
+</html>
